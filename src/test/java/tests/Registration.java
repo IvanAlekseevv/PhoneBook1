@@ -7,38 +7,24 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class Registration {
-    WebDriver wd;
+import java.util.concurrent.TimeUnit;
 
-    @BeforeMethod
-        public void preconditions(){
-        wd= new ChromeDriver();
-        wd.manage().window().maximize();
-        wd.navigate().to("https://contacts-app.tobbymarshall815.vercel.app/home");
-    }
+public class Registration extends TestBase{
+
 
     @Test
     public void registrationSuccessTest(){
+        int index = (int)(System.currentTimeMillis()/1000)%3600;
     //open form
         click(By.cssSelector("[href='/login']"));
         //fill email
-        click(By.cssSelector("[placeholder='Email']"));
-        wd.findElement(By.cssSelector("[placeholder='Email']")).clear();
-        wd.findElement(By.cssSelector("[placeholder='Email']")).sendKeys("noa@gmail.com");
-    //fill password
+        type(By.cssSelector("[placeholder='Email']"), "noa"+index+"@gmail.com");
+        //fill password
+        type(By.cssSelector("[placeholder='Password']"),"Nnoa12345$");
     //confirm registration-click registration button
-        click(By.cssSelector("//button[text()= ' Registration']"));
+        click(By.xpath("//button[text()= ' Registration']"));
+        //        click(By.xpath("//button[2]"));
+    }
     }
 
-    public void click(By locator) {
-        wd.findElement(locator).click();
-    }
 
-
-    @AfterMethod
-        public void postconditions(){
-        wd.close();
-        wd.quit();
-    }
-
-}
